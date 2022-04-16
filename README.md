@@ -1,34 +1,34 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Resource Site for Nub Turtle Healers
 
-## Getting Started
+React app housing information for our favorite turtles.
 
-First, run the development server:
+### Healing Assignment Terminology
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+- Group: A particular healer group / healer configuration. For example, the "6heal" group describes a group of our common 6 healers.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Encounter: An encounter is a boss fight or other fight (eg. trash) that requires a specific set of healing assignments.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+  - Role: The role of a healer within an encounter. This includes their tasks, eg. what they're assigned to do each phase.
+    - Task - The task a healer needs to do at a more granular level of an encounter, eg. each phase.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+### Running locally in development mode
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+To get started, just clone the repository and run `npm install && npm run dev`:
 
-## Learn More
+    git clone https://github.com/iaincollins/nextjs-starter.git
+    npm install
+    npm run dev
 
-To learn more about Next.js, take a look at the following resources:
+Note: If you are running on Windows run install --noptional flag (i.e. `npm install --no-optional`) which will skip installing fsevents.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Building and deploying in production
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+If you wanted to run this site in production, you should install modules then build the site with `npm run build` and run it with `npm start`:
 
-## Deploy on Vercel
+    npm install
+    npm run build
+    npm start
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+You should run `npm run build` again any time you make changes to the site.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Note: If you are already running a webserver on port 80 (e.g. Macs usually have the Apache webserver running on port 80) you can still start the example in production mode by passing a different port as an Environment Variable when starting (e.g. `PORT=3000 npm start`).

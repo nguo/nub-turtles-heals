@@ -15,7 +15,7 @@ React app housing information for our favorite turtles.
 
 To get started, just clone the repository and run `npm install && npm run dev`:
 
-    git clone https://github.com/iaincollins/nextjs-starter.git
+    git clone git@github.com:nguo/nub-turtles-heals.git
     npm install
     npm run dev
 

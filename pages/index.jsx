@@ -75,14 +75,9 @@ function AssignmentsPage({
             options={Object.keys(encNamesByGroup).sort()}
             onSelect={onSelectGroup}
           />
-          <Dropdown label="Raid" value={selectedRaid} options={['', ...Object.keys(encNamesByRaid).sort()]} onSelect={onSelectRaid} />
-          <Dropdown label="Boss" value={selectedBoss} options={['', ...selectableBosses.sort()]} onSelect={onSelectBoss} />
-          <Dropdown
-            label="Healer"
-            value={selectedHealer}
-            options={['', ...Object.keys(encNamesByHealer).sort()]}
-            onSelect={onSelectHealer}
-          />
+          <Dropdown label="Raid" value={selectedRaid} options={Object.keys(encNamesByRaid).sort()} onSelect={onSelectRaid} />
+          <Dropdown label="Boss" value={selectedBoss} options={selectableBosses.sort()} onSelect={onSelectBoss} />
+          <Dropdown label="Healer" value={selectedHealer} options={Object.keys(encNamesByHealer).sort()} onSelect={onSelectHealer} />
         </Toolbar>
       </div>
       <div className="flex-container">

@@ -16,6 +16,10 @@ export default function Dropdown({ label, value, options, onSelect }) {
     setIsOpen(!isOpen)
   }
 
+  if (value) {
+    options = ['', ...options]
+  }
+
   return (
     <div className="dropdown-container">
       <div className="title">{label}</div>
@@ -26,7 +30,13 @@ export default function Dropdown({ label, value, options, onSelect }) {
         <div className="dropdown-list">
           {options.map((option, i) => (
             <button key={i} onClick={() => onItemClick(option)} data-visible={isOpen}>
-              {option ? <span data-selected={value && value === option}>{option}</span> : <span>&nbsp;</span>}
+              {option ? (
+                <span data-selected={value && value === option}>{option}</span>
+              ) : (
+                <span>
+                  <i>Clear Selected</i>
+                </span>
+              )}
             </button>
           ))}
         </div>

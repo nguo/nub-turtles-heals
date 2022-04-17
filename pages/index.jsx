@@ -8,6 +8,7 @@ import fetchPlayers from '../lib/fetchPlayers'
 import fetchSpells from '../lib/fetchSpells'
 import Layout from '../components/layout'
 import CardsCollection from '../components/cardsCollection'
+import { useRouter } from 'next/router'
 
 function AssignmentsPage({
   encSummaryByEncName,
@@ -20,36 +21,60 @@ function AssignmentsPage({
   playersIndex,
   spellBook
 }) {
-  const [selectedRaid, setSelectedRaid] = useState('')
-  const [selectedBoss, setSelectedBoss] = useState('')
-  const [selectedGroup, setSelectedGroup] = useState(Object.keys(encNamesByGroup).sort()[0])
-  const [selectedHealer, setSelectedHealer] = useState('')
+  const router = useRouter()
+  const defaultGroup = Object.keys(encNamesByGroup).sort()[0]
+  const { raid, boss, group, healer } = router.query
+  const [selectedRaid, setSelectedRaid] = useState(raid || '')
+  const [selectedBoss, setSelectedBoss] = useState(boss || '')
+  const [selectedGroup, setSelectedGroup] = useState(group || defaultGroup)
+  const [selectedHealer, setSelectedHealer] = useState(healer || '')
   const [selectableBosses, setSelectableBosses] = useState(Object.keys(encNamesByBoss))
-  const [filteredEncounterNames, setFilteredEncounterNames] = useState(encNamesByGroup[selectedGroup])
+  const [filteredEncounterNames, setFilteredEncounterNames] = useState(filterEncounters(raid, boss, group || defaultGroup, healer, false))
+
+  function updateQueryParams(raid, boss, group, healer) {
+    const params = []
+    if (group) {
+      params.push('group=' + group)
+    }
+    if (raid) {
+      params.push('raid=' + raid)
+    }
+    if (boss) {
+      params.push('boss=' + boss)
+    }
+    if (healer) {
+      params.push('healer=' + healer)
+    }
+    router.push(params.length ? router.pathname + '?' + params.join('&') : router.pathname, undefined, { shallow: true }, [])
+  }
 
   function onSelectRaid(val) {
     setSelectedRaid(val)
     setSelectedBoss('')
     filterEncounters(val, '', selectedGroup, selectedHealer)
+    updateQueryParams(val, '', selectedGroup, selectedHealer)
     setSelectableBosses(val ? bossesByRaid[val] : Object.keys(encNamesByBoss))
   }
 
   function onSelectBoss(val) {
     setSelectedBoss(val)
     filterEncounters(selectedRaid, val, selectedGroup, selectedHealer)
+    updateQueryParams(selectedRaid, val, selectedGroup, selectedHealer)
   }
 
   function onSelectGroup(val) {
     setSelectedGroup(val)
     filterEncounters(selectedRaid, selectedBoss, val, selectedHealer)
+    updateQueryParams(selectedRaid, selectedBoss, val, selectedHealer)
   }
 
   function onSelectHealer(val) {
     setSelectedHealer(val)
     filterEncounters(selectedRaid, selectedBoss, selectedGroup, val)
+    updateQueryParams(selectedRaid, selectedBoss, selectedGroup, val)
   }
 
-  function filterEncounters(raid, boss, group, healer) {
+  function filterEncounters(raid, boss, group, healer, updateState = true) {
     let encounterNames = Object.keys(encSummaryByEncName)
     if (raid) {
       encounterNames = encounterNames.filter((encName) => encNamesByRaid[raid].indexOf(encName) >= 0)
@@ -63,7 +88,10 @@ function AssignmentsPage({
     if (healer) {
       encounterNames = encounterNames.filter((encName) => encNamesByHealer[healer].indexOf(encName) >= 0)
     }
-    setFilteredEncounterNames(encounterNames)
+    if (updateState) {
+      setFilteredEncounterNames(encounterNames)
+    }
+    return encounterNames
   }
 
   function handleFilterReset() {
@@ -71,6 +99,7 @@ function AssignmentsPage({
     setSelectedBoss('')
     setSelectedHealer('')
     filterEncounters('', '', selectedGroup, '')
+    updateQueryParams('', '', '', '')
   }
 
   return (

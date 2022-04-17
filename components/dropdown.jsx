@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
 export default function Dropdown({ required, label, value, options, onSelect }) {
-  console.log('required', required)
   const [isOpen, setIsOpen] = useState(false)
 
   function toggleMenu() {
@@ -21,7 +20,7 @@ export default function Dropdown({ required, label, value, options, onSelect }) 
     <div className="dropdown-container" data-open={isOpen}>
       <div className="title">{label}</div>
       <div onClick={toggleMenu}>
-        <button className='menu-button'>
+        <button className="menu-button">
           {value || 'Select'} {isOpen ? <span>&#9206;</span> : <span>&#9207;</span>}
         </button>
         <div className="dropdown-list">
@@ -64,7 +63,7 @@ export default function Dropdown({ required, label, value, options, onSelect }) 
           font-weight: 800;
           text-transform: uppercase;
         }
-        
+
         .menu-button {
           font-weight: 800;
           text-transform: uppercase;

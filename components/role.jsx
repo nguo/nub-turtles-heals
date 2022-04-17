@@ -14,9 +14,7 @@ export default function Role({ active, highlight, role, playersIndex, spellBook 
 
   return (
     <div className="container" data-active={active} data-highlight={highlight}>
-      <div className={[getHealerColor(role.healer), 'name'].join(' ')}>
-        {role.healer === 'All' ? '** ALL ** ' : role.healer}
-      </div>
+      <div className={[getHealerColor(role.healer), 'name'].join(' ')}>{role.healer === 'All' ? '** ALL ** ' : role.healer}</div>
       {role.tasks.map((task) => {
         return (
           <>
@@ -51,7 +49,7 @@ export default function Role({ active, highlight, role, playersIndex, spellBook 
           border-top: 1px solid #5fb701;
           pointer-events: auto;
         }
-        
+
         .name {
           overflow: hidden;
           text-overflow: ellipsis;

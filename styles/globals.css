@@ -6,7 +6,7 @@ body {
   margin: 0;
   font-family: BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  background: url('../public/background.jpg');
+  background: url('../public/background.jpg'); /* TODO */
   color: white;
 }
 
@@ -17,15 +17,6 @@ a {
 
 * {
   box-sizing: border-box;
-}
-
-.font-bold {
-  font-weight: bold;
-}
-
-.ellipsis {
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .masonry-grid {
@@ -39,7 +30,6 @@ a {
   padding-left: 10px; /* gutter size */
 }
 
-/* Style your items */
 .masonry-column .card {
   margin-bottom: 10px;
 }

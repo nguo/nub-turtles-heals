@@ -40,8 +40,17 @@ function AssignmentsPage({
   playersIndex,
   spellBook
 }) {
+  const orderedHealerGroups = Object.keys(encNamesByGroup).sort((a, b) => {
+    if (isDefaultHealerGroup(a)) {
+      return -1
+    } else if (isDefaultHealerGroup(b)) {
+      return 1
+    } else {
+      return a.phase < b.phase ? -1 : 1
+    }
+  })
   const router = useRouter()
-  const defaultGroup = Object.keys(encNamesByGroup).sort()[0]
+  const defaultGroup = orderedHealerGroups[0]
   const { raid, boss, group, healer } = router.query
   const [currOpenedDropdown, setCurrOpenedDropdown] = useState('')
   const [selectedRaid, setSelectedRaid] = useState(raid || '')
@@ -126,6 +135,10 @@ function AssignmentsPage({
     updateQueryParams('', '', '', '')
   }
 
+  function isDefaultHealerGroup(groupName) {
+    return groupName && groupName.toLowerCase().indexOf('default') >= 0
+  }
+
   return (
     <Layout pageTitle="Healer Assignments">
       <div className="toolbar-container">
@@ -137,7 +150,7 @@ function AssignmentsPage({
             forceClose={dropdownFilters.group.id !== currOpenedDropdown}
             label="Group Configuration"
             value={selectedGroup}
-            options={Object.keys(encNamesByGroup).sort()}
+            options={orderedHealerGroups}
             onSelect={onSelectGroup}
           />
           <Dropdown label="Raid" id={dropdownFilters.raid.id} value={selectedRaid}

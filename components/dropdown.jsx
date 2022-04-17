@@ -20,7 +20,7 @@ export default function Dropdown({ label, value, options, onSelect }) {
     <div className="dropdown-container" data-open={isOpen}>
       <div className="title">{label}</div>
       <div onClick={toggleMenu}>
-        <button data-selected="true">
+        <button className='menu-button'>
           {value || 'Select'} {isOpen ? <span>&#9206;</span> : <span>&#9207;</span>}
         </button>
         <div className="dropdown-list">
@@ -59,13 +59,21 @@ export default function Dropdown({ label, value, options, onSelect }) {
           margin: 0px auto;
           background-color: #5fb701;
         }
-        button:hover {
-          background-color: #131313;
-          color: white;
-        }
         button[data-selected='true'] {
           font-weight: 800;
           text-transform: uppercase;
+        }
+        
+        .menu-button {
+          font-weight: 800;
+          text-transform: uppercase;
+        }
+        .menu-button:hover {
+          background-color: #498d01;
+        }
+        .dropdown-container[data-open='true'] .menu-button {
+          background-color: #131313;
+          color: white;
         }
 
         .dropdown-list {
@@ -76,7 +84,10 @@ export default function Dropdown({ label, value, options, onSelect }) {
         .dropdown-list button {
           border-top: 1px solid rgba(0, 0, 0, 0.3);
         }
-
+        .dropdown-list button:hover {
+          background-color: #131313;
+          color: white;
+        }
         .dropdown-container[data-open='true'] .dropdown-list button {
           display: block;
         }

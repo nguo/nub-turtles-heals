@@ -1,4 +1,5 @@
 import SmartText from './smartText'
+import * as React from 'react';
 
 export default function Role({ active, highlight, role, playersIndex, spellBook }) {
   function getHealerColor(name) {
@@ -15,9 +16,9 @@ export default function Role({ active, highlight, role, playersIndex, spellBook 
   return (
     <div className="container" data-active={active} data-highlight={highlight}>
       <div className={[getHealerColor(role.healer), 'name'].join(' ')}>{role.healer === 'All' ? '** ALL ** ' : role.healer}</div>
-      {role.tasks.map((task) => {
+      {role.tasks.map((task, i) => {
         return (
-          <>
+          <React.Fragment key={i}>
             <div className="col2">{task.phase ? 'P' + task.phase : ''}</div>
             <div className="col3">
               <SmartText spellBook={spellBook} playersIndex={playersIndex} text={task.description} />
@@ -25,7 +26,7 @@ export default function Role({ active, highlight, role, playersIndex, spellBook 
             <div className="col3">
               <SmartText spellBook={spellBook} playersIndex={playersIndex} text={task.notes} />
             </div>
-          </>
+          </React.Fragment>
         )
       })}
       <style jsx>{`

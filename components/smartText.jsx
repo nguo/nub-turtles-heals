@@ -12,12 +12,12 @@ export default function SmartText({ text, spellBook }) {
       if (spellInfo) {
         return <Spell key={i} displayText={match} spellInfo={spellInfo} />
       }
-      return <span>match</span>
+      return <span key={i}>{match}</span>
     })
     // replace newline characters with line break
     withSpells.forEach((part, i) => {
-      withSpells[i] = rsr(part, /(\n)/g, () => {
-        return <br />
+      withSpells[i] = rsr(part, /(\n)/g, (match, i) => {
+        return <br key={i}/>
       })
     })
     return withSpells.flat()

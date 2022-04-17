@@ -7,6 +7,13 @@ export default function Toolbar({ children }) {
           display: flex;
           gap: 10px;
         }
+
+        @media (max-width: 900px) {
+          .toolbar {
+            flex-direction: column;
+            gap: 20px;
+          }
+        }
       `}</style>
     </div>
   )

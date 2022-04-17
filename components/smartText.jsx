@@ -14,7 +14,7 @@ export default function SmartText({ text, spellBook }) {
       }
       return <span>match</span>
     })
-    // replace newline characters with <br/>
+    // replace newline characters with line break
     withSpells.forEach((part, i) => {
       withSpells[i] = rsr(part, /(\n)/g, () => {
         return <br />

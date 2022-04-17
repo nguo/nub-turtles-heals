@@ -7,6 +7,7 @@ import fetchAssignmentRoles from '../lib/fetchAssignmentRoles'
 import fetchPlayers from '../lib/fetchPlayers'
 import fetchSpells from '../lib/fetchSpells'
 import Layout from '../components/layout'
+import CardsCollection from '../components/cardsCollection'
 
 function AssignmentsPage({
   encSummaryByEncName,
@@ -67,7 +68,7 @@ function AssignmentsPage({
 
   return (
     <Layout pageTitle="Healer Assignments">
-      <div className="toolbar">
+      <div className="toolbar-container">
         <Toolbar>
           <Dropdown
             label="Group Configuration"
@@ -80,63 +81,51 @@ function AssignmentsPage({
           <Dropdown label="Healer" value={selectedHealer} options={Object.keys(encNamesByHealer).sort()} onSelect={onSelectHealer} />
         </Toolbar>
       </div>
-      <div className="flex-container">
+      <CardsCollection>
         {filteredEncounterNames.map((encounter) => {
           const encSummary = encSummaryByEncName[encounter]
           const encRoles = encSummary.roleIds.map((rid) => rolesIndex[rid])
           encRoles.sort((a, b) => (a.healer < b.healer ? -1 : 1))
           return (
-            <div key={encounter} className="card-container">
-              <Card>
-                <div className="title">{encSummary.boss}</div>
-                <div className="caption">
-                  ({encSummary.raid}, {encSummary.group})
-                </div>
-                <div className="roles-list">
-                  {encRoles.map((role) => {
-                    return (
-                      <Role
-                        key={role.id}
-                        role={role}
-                        playersIndex={playersIndex}
-                        spellBook={spellBook}
-                        active={role.healer === selectedHealer || !selectedHealer}
-                        highlight={role.healer === selectedHealer}
-                      />
-                    )
-                  })}
-                </div>
-              </Card>
-            </div>
+            <Card key={encounter}>
+              <div className="card-title">{encSummary.boss}</div>
+              <div className="card-caption">
+                ({encSummary.raid}, {encSummary.group})
+              </div>
+              <div className="roles-list">
+                {encRoles.map((role) => {
+                  return (
+                    <Role
+                      key={role.id}
+                      role={role}
+                      playersIndex={playersIndex}
+                      spellBook={spellBook}
+                      active={role.healer === selectedHealer || !selectedHealer}
+                      highlight={role.healer === selectedHealer}
+                    />
+                  )
+                })}
+              </div>
+            </Card>
           )
         })}
-      </div>
+      </CardsCollection>
       <style jsx>{`
-        .toolbar {
+        .toolbar-container {
           margin: 20px 0;
         }
-        .flex-container {
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
-          justify-content: flex-start;
-          gap: 10px;
-        }
-        .title {
+        .card-title {
           font-size: larger;
           text-align: center;
           font-weight: bold;
         }
-        .caption {
+        .card-caption {
           font-size: small;
           text-align: center;
           color: lightgrey;
         }
         .roles-list {
           margin-top: 10px;
-        }
-        .card-container {
-          /* flex: 1; */
         }
       `}</style>
     </Layout>

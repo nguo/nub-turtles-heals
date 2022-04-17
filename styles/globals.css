@@ -27,3 +27,19 @@ a {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.masonry-grid {
+  display: -webkit-box; /* Not needed if autoprefixing */
+  display: -ms-flexbox; /* Not needed if autoprefixing */
+  display: flex;
+  margin-left: -10px; /* gutter size offset */
+  width: auto;
+}
+.masonry-column {
+  padding-left: 10px; /* gutter size */
+}
+
+/* Style your items */
+.masonry-column .card {
+  margin-bottom: 10px;
+}

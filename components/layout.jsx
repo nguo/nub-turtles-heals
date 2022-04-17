@@ -10,9 +10,6 @@ export default function Layout({ children, pageTitle }) {
         <div className="contents">{children}</div>
       </div>
       <style jsx>{`
-        .main {
-          padding-top: 50px;
-        }
         .contents {
           margin: 20px 40px;
         }

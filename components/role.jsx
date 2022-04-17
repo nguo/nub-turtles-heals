@@ -31,6 +31,14 @@ export default function Role({ active, highlight, role, playersIndex, spellBook 
         )
       })}
       <style jsx>{`
+        .container {
+          border-top: 1px groove darkgrey;
+          display: grid;
+          grid-template-columns: [start] 6.5em [line2] 2em [line3] auto [end];
+          grid-row-gap: 0.1em;
+          grid-column-gap: 0.1em;
+          padding: 0.15em;
+        }
         .container[data-active='false'] {
           opacity: 0.2;
         }
@@ -38,17 +46,11 @@ export default function Role({ active, highlight, role, playersIndex, spellBook 
           border-bottom: 1px solid #5fb701;
           border-top: 1px solid #5fb701;
         }
-        .container {
-          border-top: 1px groove darkgrey;
-          display: grid;
-          grid-template-columns: [start] 8em [line2] 2em [line3] auto [end];
-          grid-row-gap: 0.1em;
-          grid-column-gap: 0.1em;
-          padding: 0.15em;
-        }
+
         .col2 {
           grid-column-start: 2;
         }
+
         .col3 {
           grid-column-start: 3;
         }

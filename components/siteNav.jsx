@@ -24,8 +24,9 @@ export default function SiteNav({ pageTitle }) {
   }
 
   return (
-    <div>
-      <Toolbar>
+    <div className="site-nav-container">
+      <img id="img-top" alt="logo" src="/logo.png" />
+      <div className="tabs-list">
         {tabs.map((tabData, i) => (
           <Link key={i} href={tabData.path}>
             <Tab onClick={() => handleClick(tabData)} active={currTabPath === tabData.path} clickable={currTabPath !== tabData.path}>
@@ -33,27 +34,58 @@ export default function SiteNav({ pageTitle }) {
             </Tab>
           </Link>
         ))}
-      </Toolbar>
+      </div>
       <div className="header">
         <h1>{pageTitle}</h1>
-        <img alt="logo" src="/logo.png" />
+        <img id="img-right" alt="logo" src="/logo.png" />
       </div>
       <style jsx>{`
-        div {
+        .site-nav-container {
+          padding-top: 50px;
+        }
+
+        .tabs-list {
+          display: flex;
+          gap: 10px;
+        }
+
+        .header {
           position: relative;
         }
-        img {
+
+        #img-top {
+          display: none;
+        }
+
+        #img-right {
+          display: block;
           bottom: 0;
           right: 25px;
           position: absolute;
           height: 180px;
         }
+
         h1 {
           display: inline-block;
           background-color: #131313;
           padding: 25px 40px;
           width: 100%;
           margin: 0;
+        }
+
+        @media (max-width: 580px) {
+          .site-nav-container {
+            padding-top: 0;
+          }
+
+          #img-top {
+            display: block;
+            margin: 10px auto;
+          }
+
+          #img-right {
+            display: none;
+          }
         }
       `}</style>
     </div>

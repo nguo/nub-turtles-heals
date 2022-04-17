@@ -12,13 +12,13 @@ export default function Tab({ children, active, clickable, onClick }) {
           color: #ffffff;
           padding: 10px;
         }
-        div[data-clickable='true'] {
-          cursor: pointer;
-        }
         div:hover {
           color: green;
           background-color: #131313;
           border-bottom-color: yellow;
+        }
+        div[data-clickable='true'] {
+          cursor: pointer;
         }
         div[data-active='true'] {
           background-color: #131313;

@@ -6,13 +6,21 @@ export default function SmartText({ text, spellBook }) {
     if (!str) {
       return <span></span>
     }
-    return rsr(str, /(\[[^\]]+?])/g, (match, i) => {
+    // parse for spells
+    let withSpells = rsr(str, /(\[[^\]]+?])/g, (match, i) => {
       const spellInfo = spellBook[match.substring(1, match.length - 1)]
       if (spellInfo) {
         return <Spell key={i} displayText={match} spellInfo={spellInfo} />
       }
       return <span>match</span>
     })
+    // replace newline characters with <br/>
+    withSpells.forEach((part, i) => {
+      withSpells[i] = rsr(part, /(\n)/g, () => {
+        return <br />
+      })
+    })
+    return withSpells.flat()
   }
 
   return <>{parseSpells(text)}</>

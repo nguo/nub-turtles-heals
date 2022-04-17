@@ -27,14 +27,14 @@ export default function Dropdown({ id, required, label, value, options, onSelect
     <div className="dropdown-container" data-open={isOpen}>
       <div className="title">{label}</div>
       <div onClick={toggleMenu}>
-        <button className="menu-button">
+        <button className="menu-button" data-value={value}>
           {value || 'Select'} {isOpen ? <span>&#9206;</span> : <span>&#9207;</span>}
         </button>
         <div className="dropdown-list">
           {options.map((option, i) => (
-            <button key={i} onClick={() => onItemClick(option)}>
+            <button key={i} data-selected={value && value === option} onClick={() => onItemClick(option)}>
               {option ? (
-                <span data-selected={value && value === option}>{option}</span>
+                <span>{option}</span>
               ) : (
                 <span>
                   <i>Clear Selected</i>
@@ -46,6 +46,10 @@ export default function Dropdown({ id, required, label, value, options, onSelect
       </div>
       <style jsx>{`
         .dropdown-container {
+          display: grid;
+          grid-template-columns: auto;
+          grid-template-rows: 1fr 1fr;
+          align-items: center;
           width: 100%;
           position: relative;
         }
@@ -56,7 +60,6 @@ export default function Dropdown({ id, required, label, value, options, onSelect
         .title {
           font-weight: bold;
           text-align: center;
-          margin-bottom: 5px;
         }
 
         button {
@@ -64,19 +67,24 @@ export default function Dropdown({ id, required, label, value, options, onSelect
           border: none;
           padding: 10px;
           margin: 0px auto;
-          background-color: #5fb701;
+          background-color: #498d01;
         }
         button[data-selected='true'] {
           font-weight: 800;
           text-transform: uppercase;
         }
 
+        [data-value]:not([data-value=""]) {
+          background-color: #131313;
+          color: white;
+        }
+        
         .menu-button {
           font-weight: 800;
           text-transform: uppercase;
         }
         .menu-button:hover {
-          background-color: #498d01;
+          background-color: #5fb701;
         }
         .dropdown-container[data-open='true'] .menu-button {
           background-color: #131313;
@@ -86,9 +94,14 @@ export default function Dropdown({ id, required, label, value, options, onSelect
         .dropdown-list {
           width: 100%;
           position: absolute;
+          border: none;
+        }
+        .dropdown-container[data-open='true'] .dropdown-list {
+          border: 1px solid #131313;
         }
 
         .dropdown-list button {
+          background-color: #5fb701;
           border-top: 1px solid rgba(0, 0, 0, 0.3);
         }
         .dropdown-list button:hover {
@@ -100,6 +113,17 @@ export default function Dropdown({ id, required, label, value, options, onSelect
         }
         .dropdown-container[data-open='false'] .dropdown-list button {
           display: none;
+        }
+        
+        @media (max-width: 900px) {
+          .dropdown-container {
+            grid-template-columns: 1fr 2fr;
+            grid-template-rows: auto;
+          }
+          
+          .dropdown-list {
+            width: calc(2 * (100% / 3));
+          }
         }
       `}</style>
     </div>

@@ -10,8 +10,8 @@ const tabs = [
     path: '/'
   },
   {
-    label: 'Resources',
-    path: '/resources'
+    label: 'Tidbits',
+    path: '/tidbits'
   }
 ]
 

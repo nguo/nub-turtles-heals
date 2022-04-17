@@ -75,8 +75,9 @@ export default function Dropdown({ id, required, label, value, options, onSelect
         }
 
         [data-value]:not([data-value=""]) {
-          background-color: #131313;
+          background-color: #202020;
           color: white;
+          border: 1px solid black;
         }
         
         .menu-button {

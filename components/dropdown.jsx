@@ -1,9 +1,16 @@
 import { useState } from 'react'
 
-export default function Dropdown({ required, label, value, options, onSelect }) {
+export default function Dropdown({ id, required, label, value, options, onSelect, forceClose, onOpen }) {
   const [isOpen, setIsOpen] = useState(false)
 
+  if (forceClose && isOpen) {
+    setIsOpen(false)
+  }
+
   function toggleMenu() {
+    if (!isOpen) {
+      onOpen(id)
+    }
     setIsOpen(!isOpen)
   }
 

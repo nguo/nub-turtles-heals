@@ -10,6 +10,25 @@ import Layout from '../components/layout'
 import CardsCollection from '../components/cardsCollection'
 import { useRouter } from 'next/router'
 
+const dropdownFilters = {
+  group: {
+    id: 'group',
+    label: 'Group Configuration'
+  },
+  raid: {
+    id: 'raid',
+    label: 'Raid'
+  },
+  boss: {
+    id: 'boss',
+    label: 'Boss'
+  },
+  healer: {
+    id: 'healer',
+    label: 'Healer'
+  }
+}
+
 function AssignmentsPage({
   encSummaryByEncName,
   encNamesByRaid,
@@ -24,6 +43,7 @@ function AssignmentsPage({
   const router = useRouter()
   const defaultGroup = Object.keys(encNamesByGroup).sort()[0]
   const { raid, boss, group, healer } = router.query
+  const [currOpenedDropdown, setCurrOpenedDropdown] = useState('')
   const [selectedRaid, setSelectedRaid] = useState(raid || '')
   const [selectedBoss, setSelectedBoss] = useState(boss || '')
   const [selectedGroup, setSelectedGroup] = useState(group || defaultGroup)
@@ -46,6 +66,10 @@ function AssignmentsPage({
       params.push('healer=' + healer)
     }
     router.push(params.length ? router.pathname + '?' + params.join('&') : router.pathname, undefined, { shallow: true }, [])
+  }
+
+  function onFilterOpen(id) {
+    setCurrOpenedDropdown(id)
   }
 
   function onSelectRaid(val) {
@@ -108,14 +132,23 @@ function AssignmentsPage({
         <Toolbar>
           <Dropdown
             required
+            id={dropdownFilters.group.id}
+            onOpen={onFilterOpen}
+            forceClose={dropdownFilters.group.id !== currOpenedDropdown}
             label="Group Configuration"
             value={selectedGroup}
             options={Object.keys(encNamesByGroup).sort()}
             onSelect={onSelectGroup}
           />
-          <Dropdown label="Raid" value={selectedRaid} options={Object.keys(encNamesByRaid).sort()} onSelect={onSelectRaid} />
-          <Dropdown label="Boss" value={selectedBoss} options={selectableBosses.sort()} onSelect={onSelectBoss} />
-          <Dropdown label="Healer" value={selectedHealer} options={Object.keys(encNamesByHealer).sort()} onSelect={onSelectHealer} />
+          <Dropdown label="Raid" id={dropdownFilters.raid.id} value={selectedRaid}
+                    onOpen={onFilterOpen} forceClose={dropdownFilters.raid.id !== currOpenedDropdown}
+                    options={Object.keys(encNamesByRaid).sort()} onSelect={onSelectRaid} />
+          <Dropdown label="Boss" id={dropdownFilters.boss.id} value={selectedBoss}
+                    onOpen={onFilterOpen} forceClose={dropdownFilters.boss.id !== currOpenedDropdown}
+                    options={selectableBosses.sort()} onSelect={onSelectBoss} />
+          <Dropdown label="Healer" id={dropdownFilters.healer.id} value={selectedHealer}
+                    onOpen={onFilterOpen} forceClose={dropdownFilters.healer.id !== currOpenedDropdown}
+                    options={Object.keys(encNamesByHealer).sort()} onSelect={onSelectHealer} />
         </Toolbar>
         {(selectedRaid || selectedBoss || selectedHealer) && <p onClick={handleFilterReset}>Reset Selections</p>}
       </div>

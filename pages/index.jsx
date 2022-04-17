@@ -1,12 +1,12 @@
 import Card from '../components/card'
 import Role from '../components/role'
-import Head from 'next/head'
 import Dropdown from '../components/dropdown'
 import Toolbar from '../components/toolbar'
 import { useState } from 'react'
 import fetchAssignmentRoles from '../lib/fetchAssignmentRoles'
 import fetchPlayers from '../lib/fetchPlayers'
 import fetchSpells from '../lib/fetchSpells'
+import Layout from '../components/layout'
 
 function AssignmentsPage({
   encSummaryByEncName,
@@ -66,12 +66,8 @@ function AssignmentsPage({
   }
 
   return (
-    <>
-      <Head>
-        <title>Nub Heals</title>
-      </Head>
-      <div className="main">
-        <h1>Healing Assignments</h1>
+    <Layout pageTitle="Healer Assignments">
+      <div className="toolbar">
         <Toolbar>
           <Dropdown
             label="Group Configuration"
@@ -88,41 +84,41 @@ function AssignmentsPage({
             onSelect={onSelectHealer}
           />
         </Toolbar>
-        <div className="flex-container">
-          {filteredEncounterNames.map((encounter) => {
-            const encSummary = encSummaryByEncName[encounter]
-            const encRoles = encSummary.roleIds.map((rid) => rolesIndex[rid])
-            encRoles.sort((a, b) => (a.healer < b.healer ? -1 : 1))
-            return (
-              <div key={encounter} className="card-container">
-                <Card>
-                  <div className="title">{encSummary.boss}</div>
-                  <div className="caption">
-                    ({encSummary.raid}, {encSummary.group})
-                  </div>
-                  <div className="roles-list">
-                    {encRoles.map((role) => {
-                      return (
-                        <Role
-                          key={role.id}
-                          role={role}
-                          playersIndex={playersIndex}
-                          spellBook={spellBook}
-                          active={role.healer === selectedHealer || !selectedHealer}
-                          highlight={role.healer === selectedHealer}
-                        />
-                      )
-                    })}
-                  </div>
-                </Card>
-              </div>
-            )
-          })}
-        </div>
+      </div>
+      <div className="flex-container">
+        {filteredEncounterNames.map((encounter) => {
+          const encSummary = encSummaryByEncName[encounter]
+          const encRoles = encSummary.roleIds.map((rid) => rolesIndex[rid])
+          encRoles.sort((a, b) => (a.healer < b.healer ? -1 : 1))
+          return (
+            <div key={encounter} className="card-container">
+              <Card>
+                <div className="title">{encSummary.boss}</div>
+                <div className="caption">
+                  ({encSummary.raid}, {encSummary.group})
+                </div>
+                <div className="roles-list">
+                  {encRoles.map((role) => {
+                    return (
+                      <Role
+                        key={role.id}
+                        role={role}
+                        playersIndex={playersIndex}
+                        spellBook={spellBook}
+                        active={role.healer === selectedHealer || !selectedHealer}
+                        highlight={role.healer === selectedHealer}
+                      />
+                    )
+                  })}
+                </div>
+              </Card>
+            </div>
+          )
+        })}
       </div>
       <style jsx>{`
-        .main {
-          margin: 40px;
+        .toolbar {
+          margin: 20px 0;
         }
         .flex-container {
           display: flex;
@@ -130,7 +126,6 @@ function AssignmentsPage({
           flex-wrap: wrap;
           justify-content: flex-start;
           gap: 10px;
-          margin: 20px 0;
         }
         .title {
           font-size: larger;
@@ -149,7 +144,7 @@ function AssignmentsPage({
           /* flex: 1; */
         }
       `}</style>
-    </>
+    </Layout>
   )
 }
 

@@ -6,10 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prettify": "npx prettier --write .",
+    "pretty": "npx prettier --check ."
   },
   "dependencies": {
     "next": "12.1.5",
+    "nextjs-progressbar": "^0.0.14",
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-string-replace": "^1.0.0"

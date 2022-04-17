@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
-export default function Dropdown({ label, value, options, onSelect }) {
+export default function Dropdown({ required, label, value, options, onSelect }) {
+  console.log('required', required)
   const [isOpen, setIsOpen] = useState(false)
 
   function toggleMenu() {
@@ -12,7 +13,7 @@ export default function Dropdown({ label, value, options, onSelect }) {
     setIsOpen(!isOpen)
   }
 
-  if (value) {
+  if (value && !required) {
     options = ['', ...options]
   }
 

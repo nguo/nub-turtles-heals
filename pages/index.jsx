@@ -66,11 +66,19 @@ function AssignmentsPage({
     setFilteredEncounterNames(encounterNames)
   }
 
+  function handleFilterReset() {
+    setSelectedRaid('')
+    setSelectedBoss('')
+    setSelectedHealer('')
+    filterEncounters('', '', selectedGroup, '')
+  }
+
   return (
     <Layout pageTitle="Healer Assignments">
       <div className="toolbar-container">
         <Toolbar>
           <Dropdown
+            required
             label="Group Configuration"
             value={selectedGroup}
             options={Object.keys(encNamesByGroup).sort()}
@@ -80,6 +88,7 @@ function AssignmentsPage({
           <Dropdown label="Boss" value={selectedBoss} options={selectableBosses.sort()} onSelect={onSelectBoss} />
           <Dropdown label="Healer" value={selectedHealer} options={Object.keys(encNamesByHealer).sort()} onSelect={onSelectHealer} />
         </Toolbar>
+        {(selectedRaid || selectedBoss || selectedHealer) && <p onClick={handleFilterReset}>Reset Selections</p>}
       </div>
       <CardsCollection>
         {filteredEncounterNames.map((encounter) => {
@@ -110,9 +119,14 @@ function AssignmentsPage({
           )
         })}
       </CardsCollection>
+      {filteredEncounterNames.length === 0 && <p>No matches against the selected filters</p>}
       <style jsx>{`
         .toolbar-container {
           margin: 20px 0;
+        }
+        .toolbar-container > p {
+          cursor: pointer;
+          text-decoration: underline;
         }
         .card-title {
           font-size: larger;

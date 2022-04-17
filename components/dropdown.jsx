@@ -28,7 +28,7 @@ export default function Dropdown({ id, required, label, value, options, onSelect
       <div className="title">{label}</div>
       <div onClick={toggleMenu}>
         <button className="menu-button" data-value={value}>
-          {value || 'Select'} {isOpen ? <span>&#9206;</span> : <span>&#9207;</span>}
+          {value || 'Select'} {isOpen ? <span className="menu-icon">&#9650;</span> : <span className="menu-icon">&#9660;</span>}
         </button>
         <div className="dropdown-list">
           {options.map((option, i) => (
@@ -74,12 +74,12 @@ export default function Dropdown({ id, required, label, value, options, onSelect
           text-transform: uppercase;
         }
 
-        [data-value]:not([data-value=""]) {
+        [data-value]:not([data-value='']) {
           background-color: #202020;
           color: white;
           border: 1px solid black;
         }
-        
+
         .menu-button {
           font-weight: 800;
           text-transform: uppercase;
@@ -90,6 +90,10 @@ export default function Dropdown({ id, required, label, value, options, onSelect
         .dropdown-container[data-open='true'] .menu-button {
           background-color: #131313;
           color: white;
+        }
+
+        .menu-icon {
+          font-size: 10px;
         }
 
         .dropdown-list {
@@ -115,13 +119,13 @@ export default function Dropdown({ id, required, label, value, options, onSelect
         .dropdown-container[data-open='false'] .dropdown-list button {
           display: none;
         }
-        
+
         @media (max-width: 900px) {
           .dropdown-container {
             grid-template-columns: 1fr 2fr;
             grid-template-rows: auto;
           }
-          
+
           .dropdown-list {
             width: calc(2 * (100% / 3));
           }

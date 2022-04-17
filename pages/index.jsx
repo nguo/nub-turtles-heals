@@ -153,15 +153,33 @@ function AssignmentsPage({
             options={orderedHealerGroups}
             onSelect={onSelectGroup}
           />
-          <Dropdown label="Raid" id={dropdownFilters.raid.id} value={selectedRaid}
-                    onOpen={onFilterOpen} forceClose={dropdownFilters.raid.id !== currOpenedDropdown}
-                    options={Object.keys(encNamesByRaid).sort()} onSelect={onSelectRaid} />
-          <Dropdown label="Boss" id={dropdownFilters.boss.id} value={selectedBoss}
-                    onOpen={onFilterOpen} forceClose={dropdownFilters.boss.id !== currOpenedDropdown}
-                    options={selectableBosses.sort()} onSelect={onSelectBoss} />
-          <Dropdown label="Healer" id={dropdownFilters.healer.id} value={selectedHealer}
-                    onOpen={onFilterOpen} forceClose={dropdownFilters.healer.id !== currOpenedDropdown}
-                    options={Object.keys(encNamesByHealer).sort()} onSelect={onSelectHealer} />
+          <Dropdown
+            label="Raid"
+            id={dropdownFilters.raid.id}
+            value={selectedRaid}
+            onOpen={onFilterOpen}
+            forceClose={dropdownFilters.raid.id !== currOpenedDropdown}
+            options={Object.keys(encNamesByRaid).sort()}
+            onSelect={onSelectRaid}
+          />
+          <Dropdown
+            label="Boss"
+            id={dropdownFilters.boss.id}
+            value={selectedBoss}
+            onOpen={onFilterOpen}
+            forceClose={dropdownFilters.boss.id !== currOpenedDropdown}
+            options={selectableBosses.sort()}
+            onSelect={onSelectBoss}
+          />
+          <Dropdown
+            label="Healer"
+            id={dropdownFilters.healer.id}
+            value={selectedHealer}
+            onOpen={onFilterOpen}
+            forceClose={dropdownFilters.healer.id !== currOpenedDropdown}
+            options={Object.keys(encNamesByHealer).sort()}
+            onSelect={onSelectHealer}
+          />
         </Toolbar>
         {(selectedRaid || selectedBoss || selectedHealer) && <p onClick={handleFilterReset}>Reset Selections</p>}
       </div>

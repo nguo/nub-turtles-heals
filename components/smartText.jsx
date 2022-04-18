@@ -29,7 +29,6 @@ export default function SmartText({ text, spellBook }) {
     // replace urls with a tags
     parsed.forEach((part, i) => {
       parsed[i] = rsr(part, /(http[s]?:\/\/[\S]+)\s*/g, (match, i) => {
-        console.log('match:', match)
         return (
           <a key={'a-' + i} href={match}>
             {match}

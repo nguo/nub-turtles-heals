@@ -140,7 +140,7 @@ function AssignmentsPage({
   }
 
   return (
-    <Layout pageTitle="Healer Assignments">
+    <Layout pageTitle="Healing Assignments">
       <div className="toolbar-container">
         <Toolbar>
           <Dropdown

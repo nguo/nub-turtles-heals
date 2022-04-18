@@ -1,14 +1,51 @@
 import Tooltip from './tooltip'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 export default function Spell({ displayText, spellInfo }) {
+  const [isTouchDevice, setIsTouchDevice] = useState(false)
+  const router = useRouter()
+
+  useEffect(() => {
+    let touch = window.matchMedia("(hover: none) and (pointer: coarse)").matches
+    if (isTouchDevice !== touch) {
+      setIsTouchDevice(touch)
+    }
+  }, [])
+  
+  function onSpellClick(e) {
+    if (isTouchDevice || !spellInfo.spellId) {
+      e.preventDefault()
+      return;
+    }
+    router.push(getLink())
+  }
+
+  function getLink() {
+    return 'https://tbc.wowhead.com/spell=' + spellInfo.spellId
+  }
+
   return (
-    <Tooltip tooltipText={spellInfo.description}>
-      <a href={spellInfo.spellId ? 'https://tbc.wowhead.com/spell=' + spellInfo.spellId : ''}>{displayText}</a>
+    <Tooltip tooltipText={
+      isTouchDevice ? (
+        <div>
+          <div>{spellInfo.description}</div>
+          { spellInfo.spellId && <a href={getLink()}>go to spell</a>}
+        </div>
+      ) :
+        spellInfo.description}>
+      <div className="spell" data-spellId={spellInfo.spellId} onClick={onSpellClick}>{displayText}</div>
       <style jsx>{`
-        a {
+        .spell {
           font-style: italic;
-          text-decoration: underline;
           color: palegoldenrod;
+        }
+        a {
+          color: darkgreen;
+        }
+        [data-spellId]:not([data-spellId='']) {
+          cursor: pointer;
+          text-decoration: underline;
         }
       `}</style>
     </Tooltip>

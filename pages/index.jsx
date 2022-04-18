@@ -13,7 +13,7 @@ import { useRouter } from 'next/router'
 const dropdownFilters = {
   group: {
     id: 'group',
-    label: 'Group Configuration'
+    label: 'Group Comp'
   },
   raid: {
     id: 'raid',
@@ -148,13 +148,13 @@ function AssignmentsPage({
             id={dropdownFilters.group.id}
             onOpen={onFilterOpen}
             forceClose={dropdownFilters.group.id !== currOpenedDropdown}
-            label="Group Configuration"
+            label={dropdownFilters.group.label}
             value={selectedGroup}
             options={orderedHealerGroups}
             onSelect={onSelectGroup}
           />
           <Dropdown
-            label="Raid"
+            label={dropdownFilters.raid.label}
             id={dropdownFilters.raid.id}
             value={selectedRaid}
             onOpen={onFilterOpen}
@@ -163,7 +163,7 @@ function AssignmentsPage({
             onSelect={onSelectRaid}
           />
           <Dropdown
-            label="Boss"
+            label={dropdownFilters.boss.label}
             id={dropdownFilters.boss.id}
             value={selectedBoss}
             onOpen={onFilterOpen}

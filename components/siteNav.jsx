@@ -45,6 +45,7 @@ export default function SiteNav({ pageTitle }) {
         }
 
         .tabs-list {
+          margin-left: 20px;
           display: flex;
           gap: 10px;
         }

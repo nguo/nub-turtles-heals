@@ -29,9 +29,11 @@ export default function SiteNav({ pageTitle }) {
       <div className="tabs-list">
         {tabs.map((tabData, i) => (
           <Link key={i} href={tabData.path}>
-            <Tab onClick={() => handleClick(tabData)} active={currTabPath === tabData.path} clickable={currTabPath !== tabData.path}>
-              {tabData.label}
-            </Tab>
+            <div>
+              <Tab onClick={() => handleClick(tabData)} active={currTabPath === tabData.path} clickable={currTabPath !== tabData.path}>
+                {tabData.label}
+              </Tab>
+            </div>
           </Link>
         ))}
       </div>

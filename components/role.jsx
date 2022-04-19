@@ -1,5 +1,7 @@
 import SmartText from './smartText'
-import * as React from 'react'
+import Copy from './copy'
+import { Fragment } from 'react'
+import { roleToString } from '../lib/utils'
 
 export default function Role({ active, highlight, role, playersIndex, spellBook }) {
   function getHealerColor(name) {
@@ -13,12 +15,16 @@ export default function Role({ active, highlight, role, playersIndex, spellBook 
     return details.class.toLowerCase() + '-color'
   }
 
+  function copyRole() {
+    navigator.clipboard.writeText(roleToString(role))
+  }
+
   return (
     <div className="container" data-active={active} data-highlight={highlight}>
       <div className={[getHealerColor(role.healer), 'name'].join(' ')}>{role.healer === 'All' ? '** ALL ** ' : role.healer}</div>
       {role.tasks.map((task, i) => {
         return (
-          <React.Fragment key={i}>
+          <Fragment key={i}>
             <div className="col2">{task.phase ? 'P' + task.phase : ''}</div>
             <div className="col3">
               <SmartText spellBook={spellBook} playersIndex={playersIndex} text={task.description} />
@@ -26,14 +32,17 @@ export default function Role({ active, highlight, role, playersIndex, spellBook 
             <div className="col3">
               <SmartText spellBook={spellBook} playersIndex={playersIndex} text={task.notes} />
             </div>
-          </React.Fragment>
+          </Fragment>
         )
       })}
+      <div className="copy-icon">
+        <Copy onCopy={copyRole} />
+      </div>
       <style jsx>{`
         .container {
           border-top: 1px groove darkgrey;
           display: grid;
-          grid-template-columns: [start] 6.5em [line2] 2em [line3] auto [end];
+          grid-template-columns: [start] 6.5em [line2] 2em [line3] auto [line4] 0.7em [end];
           grid-row-gap: 0.1em;
           grid-column-gap: 0.1em;
           padding: 0.15em;
@@ -49,6 +58,19 @@ export default function Role({ active, highlight, role, playersIndex, spellBook 
           border-bottom: 1px solid #5fb701;
           border-top: 1px solid #5fb701;
           pointer-events: auto;
+        }
+
+        .copy-icon {
+          display: none;
+          width: 0.7em;
+          grid-row-start: 1;
+          grid-column-end: 5;
+          justify-self: end;
+          align-self: start;
+          cursor: pointer;
+        }
+        .container:hover .copy-icon {
+          display: block;
         }
 
         .name {

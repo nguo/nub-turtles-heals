@@ -9,6 +9,8 @@ import fetchSpells from '../lib/fetchSpells'
 import Layout from '../components/layout'
 import CardsCollection from '../components/cardsCollection'
 import { useRouter } from 'next/router'
+import Copy from '../components/copy'
+import { roleToString } from '../lib/utils'
 
 const dropdownFilters = {
   group: {
@@ -127,6 +129,12 @@ function AssignmentsPage({
     return encounterNames
   }
 
+  function copyEncounter(encounterSummary, encounterRoles) {
+    let str = `** Healing Assignments for ${encounterSummary.boss} **\r\n`
+    str += encounterRoles.map((role) => roleToString(role)).join('\r\n')
+    navigator.clipboard.writeText(str)
+  }
+
   function handleFilterReset() {
     setSelectedRaid('')
     setSelectedBoss('')
@@ -190,6 +198,9 @@ function AssignmentsPage({
           encRoles.sort((a, b) => (a.healer < b.healer ? -1 : 1))
           return (
             <Card key={encounter}>
+              <div className="copy-container">
+                <Copy onCopy={() => copyEncounter(encSummary, encRoles)} />
+              </div>
               <div className="card-title">{encSummary.boss}</div>
               <div className="card-caption">
                 ({encSummary.raid}, {encSummary.group})
@@ -220,6 +231,11 @@ function AssignmentsPage({
         .toolbar-container > p {
           cursor: pointer;
           text-decoration: underline;
+        }
+        .copy-container {
+          width: 15px;
+          float: right;
+          cursor: pointer;
         }
         .card-title {
           font-size: larger;

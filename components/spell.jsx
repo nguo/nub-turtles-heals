@@ -7,16 +7,16 @@ export default function Spell({ displayText, spellInfo }) {
   const router = useRouter()
 
   useEffect(() => {
-    let touch = window.matchMedia("(hover: none) and (pointer: coarse)").matches
+    let touch = window.matchMedia('(hover: none) and (pointer: coarse)').matches
     if (isTouchDevice !== touch) {
       setIsTouchDevice(touch)
     }
   }, [])
-  
+
   function onSpellClick(e) {
     if (isTouchDevice || !spellInfo.spellId) {
       e.preventDefault()
-      return;
+      return
     }
     router.push(getLink())
   }
@@ -26,15 +26,20 @@ export default function Spell({ displayText, spellInfo }) {
   }
 
   return (
-    <Tooltip tooltipText={
-      isTouchDevice ? (
-        <div>
-          <div>{spellInfo.description}</div>
-          { spellInfo.spellId && <a href={getLink()}>go to spell</a>}
-        </div>
-      ) :
-        spellInfo.description}>
-      <div className="spell" data-spellId={spellInfo.spellId} onClick={onSpellClick}>{displayText}</div>
+    <Tooltip
+      tooltipText={
+        isTouchDevice ? (
+          <div>
+            <div>{spellInfo.description}</div>
+            {spellInfo.spellId && <a href={getLink()}>go to spell</a>}
+          </div>
+        ) : (
+          spellInfo.description
+        )
+      }>
+      <div className="spell" data-spellid={spellInfo.spellId} onClick={onSpellClick}>
+        {displayText}
+      </div>
       <style jsx>{`
         .spell {
           font-style: italic;
@@ -43,7 +48,7 @@ export default function Spell({ displayText, spellInfo }) {
         a {
           color: darkgreen;
         }
-        [data-spellId]:not([data-spellId='']) {
+        [data-spellid]:not([data-spellid='']) {
           cursor: pointer;
           text-decoration: underline;
         }

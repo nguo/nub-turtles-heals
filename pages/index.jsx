@@ -11,6 +11,7 @@ import CardsCollection from '../components/cardsCollection'
 import { useRouter } from 'next/router'
 import Copy from '../components/copy'
 import { roleToString } from '../lib/utils'
+import { ALL_HEALER_NAME } from '../lib/consts'
 
 const dropdownFilters = {
   group: {
@@ -185,7 +186,9 @@ function AssignmentsPage({
             value={selectedHealer}
             onOpen={onFilterOpen}
             forceClose={dropdownFilters.healer.id !== currOpenedDropdown}
-            options={Object.keys(encNamesByHealer).sort()}
+            options={Object.keys(encNamesByHealer)
+              .sort()
+              .filter((healer) => healer !== ALL_HEALER_NAME)}
             onSelect={onSelectHealer}
           />
         </Toolbar>
@@ -213,8 +216,8 @@ function AssignmentsPage({
                       role={role}
                       playersIndex={playersIndex}
                       spellBook={spellBook}
-                      active={role.healer === selectedHealer || !selectedHealer}
-                      highlight={role.healer === selectedHealer}
+                      active={role.healer === selectedHealer || !selectedHealer || role.healer === ALL_HEALER_NAME}
+                      highlight={selectedHealer && (role.healer === selectedHealer || role.healer === ALL_HEALER_NAME)}
                     />
                   )
                 })}

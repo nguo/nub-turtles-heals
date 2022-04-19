@@ -2,10 +2,11 @@ import SmartText from './smartText'
 import Copy from './copy'
 import { Fragment } from 'react'
 import { roleToString } from '../lib/utils'
+import { ALL_HEALER_NAME } from '../lib/consts'
 
 export default function Role({ active, highlight, role, playersIndex, spellBook }) {
   function getHealerClass(name) {
-    return (name === 'All' ? name : playersIndex[name] && playersIndex[name].class).toLowerCase()
+    return (name === ALL_HEALER_NAME ? 'all' : playersIndex[name] && playersIndex[name].class).toLowerCase()
   }
 
   function copyRole() {
@@ -15,7 +16,7 @@ export default function Role({ active, highlight, role, playersIndex, spellBook 
   return (
     <div className="container" data-active={active} data-highlight={highlight}>
       <div className="name" data-class-color={getHealerClass(role.healer)}>
-        {role.healer === 'All' ? '** ALL ** ' : role.healer}
+        {role.healer === ALL_HEALER_NAME ? '** ALL ** ' : role.healer}
       </div>
       {role.tasks.map((task, i) => {
         return (
@@ -45,9 +46,11 @@ export default function Role({ active, highlight, role, playersIndex, spellBook 
           font-weight: normal;
         }
         .container[data-active='false'] {
-          opacity: 0.2;
-          font-weight: lighter;
-          pointer-events: none;
+          /** TODO: do we want to completely hide non-active roles or just dim? */
+          // opacity: 0.2;
+          // font-weight: lighter;
+          // pointer-events: none;
+          display: none;
         }
         .container[data-highlight='true'] {
           border-bottom: 1px solid #5fb701;

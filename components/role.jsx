@@ -4,15 +4,8 @@ import { Fragment } from 'react'
 import { roleToString } from '../lib/utils'
 
 export default function Role({ active, highlight, role, playersIndex, spellBook }) {
-  function getHealerColor(name) {
-    if (name === 'All') {
-      return 'all-color'
-    }
-    const details = playersIndex[name]
-    if (!details) {
-      return ''
-    }
-    return details.class.toLowerCase() + '-color'
+  function getHealerClass(name) {
+    return (name === 'All' ? name : playersIndex[name] && playersIndex[name].class).toLowerCase()
   }
 
   function copyRole() {
@@ -21,7 +14,9 @@ export default function Role({ active, highlight, role, playersIndex, spellBook 
 
   return (
     <div className="container" data-active={active} data-highlight={highlight}>
-      <div className={[getHealerColor(role.healer), 'name'].join(' ')}>{role.healer === 'All' ? '** ALL ** ' : role.healer}</div>
+      <div className="name" data-class-color={getHealerClass(role.healer)}>
+        {role.healer === 'All' ? '** ALL ** ' : role.healer}
+      </div>
       {role.tasks.map((task, i) => {
         return (
           <Fragment key={i}>

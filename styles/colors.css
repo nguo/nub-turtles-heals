@@ -1,24 +1,24 @@
-.shaman-color {
+[data-class-color='shaman'] {
   color: #0070dd;
 }
 
-.priest-color {
+[data-class-color='priest'] {
   color: #f0f0f0;
 }
 
-.druid-color {
+[data-class-color='druid'] {
   color: #ff7c0a;
 }
 
-.paladin-color {
+[data-class-color='paladin'] {
   color: #f48cba;
 }
 
-.warrior-color {
+[data-class-color='warrior'] {
   color: #c69b6d;
 }
 
-.all-color {
+[data-class-color='all'] {
   color: mediumpurple;
 }
 

@@ -38,7 +38,7 @@ export default function Role({ active, highlight, role, playersIndex, spellBook 
         .container {
           border-top: 1px groove darkgrey;
           display: grid;
-          grid-template-columns: [start] 6.5em [line2] 2em [line3] auto [line4] 0.7em [end];
+          grid-template-columns: [start] 6.5em [line2] 2em [line3] auto [line4] 0.8em [end];
           grid-row-gap: 0.1em;
           grid-column-gap: 0.1em;
           padding: 0.15em;
@@ -60,7 +60,7 @@ export default function Role({ active, highlight, role, playersIndex, spellBook 
 
         .copy-icon {
           display: none;
-          width: 0.7em;
+          width: 0.8em;
           grid-row-start: 1;
           grid-column-end: 5;
           justify-self: end;

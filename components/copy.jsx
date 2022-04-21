@@ -3,7 +3,7 @@ export default function Copy({ onCopy }) {
     onCopy()
   }
   return (
-    <div onClick={handleClick} title="copy">
+    <div onClick={handleClick} title="Copy as text">
       <svg xmlns="http://www.w3.org/2000/svg" height="100%" viewBox="0 0 24 24" width="100%">
         <path fill="none" d="M0 0h24v24H0z" />
         <path
@@ -14,6 +14,9 @@ export default function Copy({ onCopy }) {
       <style jsx>{`
         svg {
           color: lightgrey;
+        }
+        svg:active {
+          color: darkgrey;
         }
       `}</style>
     </div>

@@ -70,7 +70,7 @@ export default function SiteNav({ pageTitle }) {
 
         h1 {
           display: inline-block;
-          background-color: #131313;
+          background-color: var(--color-hover-secondary);
           padding: 25px 40px;
           width: 100%;
           margin: 0;

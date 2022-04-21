@@ -10,7 +10,7 @@ import Layout from '../components/layout'
 import CardsCollection from '../components/cardsCollection'
 import { useRouter } from 'next/router'
 import Copy from '../components/copy'
-import { roleToString } from '../lib/utils'
+import { doesPlayerNameMatch, roleToString } from '../lib/utils'
 import { ALL_HEALER_NAME } from '../lib/consts'
 
 const dropdownFilters = {
@@ -66,16 +66,16 @@ function AssignmentsPage({
   function updateQueryParams(raid, boss, group, healer) {
     const params = []
     if (group) {
-      params.push('group=' + group)
+      params.push('group=' + encodeURIComponent(group))
     }
     if (raid) {
-      params.push('raid=' + raid)
+      params.push('raid=' + encodeURIComponent(raid))
     }
     if (boss) {
-      params.push('boss=' + boss)
+      params.push('boss=' + encodeURIComponent(boss))
     }
     if (healer) {
-      params.push('healer=' + healer)
+      params.push('healer=' + encodeURIComponent(healer))
     }
     router.push(params.length ? router.pathname + '?' + params.join('&') : router.pathname, undefined, { shallow: true }, [])
   }
@@ -122,7 +122,11 @@ function AssignmentsPage({
       encounterNames = encounterNames.filter((encName) => encNamesByGroup[group].indexOf(encName) >= 0)
     }
     if (healer) {
-      encounterNames = encounterNames.filter((encName) => encNamesByHealer[healer].indexOf(encName) >= 0)
+      const matchingNames = Object.keys(playersIndex).filter((indexedName) => doesPlayerNameMatch(healer, indexedName))
+      encounterNames = matchingNames
+        .map((name) => encNamesByHealer[name])
+        .flat()
+        .filter((name) => !!name)
     }
     if (updateState) {
       setFilteredEncounterNames(encounterNames)
@@ -141,7 +145,13 @@ function AssignmentsPage({
     setSelectedBoss('')
     setSelectedHealer('')
     filterEncounters('', '', selectedGroup, '')
-    updateQueryParams('', '', '', '')
+    updateQueryParams('', '', selectedGroup === defaultGroup ? '' : selectedGroup, '')
+  }
+
+  function getHealersList() {
+    return Object.keys(playersIndex)
+      .filter((name) => playersIndex[name].role === 'Healer')
+      .sort()
   }
 
   function isDefaultHealerGroup(groupName) {
@@ -186,9 +196,7 @@ function AssignmentsPage({
             value={selectedHealer}
             onOpen={onFilterOpen}
             forceClose={dropdownFilters.healer.id !== currOpenedDropdown}
-            options={Object.keys(encNamesByHealer)
-              .sort()
-              .filter((healer) => healer !== ALL_HEALER_NAME)}
+            options={getHealersList()}
             onSelect={onSelectHealer}
           />
         </Toolbar>
@@ -198,7 +206,19 @@ function AssignmentsPage({
         {filteredEncounterNames.map((encounter) => {
           const encSummary = encSummaryByEncName[encounter]
           const encRoles = encSummary.roleIds.map((rid) => rolesIndex[rid])
-          encRoles.sort((a, b) => (a.healer < b.healer ? -1 : 1))
+          encRoles.sort((a, b) => {
+            // unknown healers sorted to the top
+            if (!playersIndex[a.healer] && !playersIndex[b.healer]) {
+              return a.healer < b.healer ? -1 : 1
+            }
+            if (!playersIndex[a.healer]) {
+              return -1
+            }
+            if (!playersIndex[b.healer]) {
+              return 1
+            }
+            return a.healer < b.healer ? -1 : 1
+          })
           return (
             <Card key={encounter}>
               <div className="copy-container">
@@ -216,8 +236,16 @@ function AssignmentsPage({
                       role={role}
                       playersIndex={playersIndex}
                       spellBook={spellBook}
-                      active={role.healer === selectedHealer || !selectedHealer || role.healer === ALL_HEALER_NAME}
-                      highlight={selectedHealer && (role.healer === selectedHealer || role.healer === ALL_HEALER_NAME)}
+                      active={
+                        doesPlayerNameMatch(selectedHealer, role.healer) ||
+                        !selectedHealer ||
+                        !playersIndex[role.healer] ||
+                        role.healer === ALL_HEALER_NAME
+                      }
+                      highlight={
+                        selectedHealer &&
+                        (doesPlayerNameMatch(selectedHealer, role.healer) || !playersIndex[role.healer] || role.healer === ALL_HEALER_NAME)
+                      }
                     />
                   )
                 })}

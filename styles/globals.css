@@ -12,7 +12,7 @@ body {
 
 a {
   text-decoration: underline;
-  color: lightgreen;
+  color: var(--color-link-primary);
   overflow-wrap: anywhere;
 }
 

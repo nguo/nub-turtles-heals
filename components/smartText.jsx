@@ -9,12 +9,12 @@ export default function SmartText({ text, spellBook }) {
     // parse for spells
     let parsed
     if (spellBook) {
-      parsed = rsr(str, /(\[[^\]]+?])/g, (match, i) => {
-        const spellInfo = spellBook[match.substring(1, match.length - 1)]
+      parsed = rsr(str, /\[([^\]]+?)]/g, (match, i) => {
+        const spellInfo = spellBook[match]
         if (spellInfo) {
           return <Spell key={'spell-' + i} displayText={match} spellInfo={spellInfo} />
         }
-        return <span key={'spell-' + i}>{match}</span>
+        return <span key={'spell-' + i}>[{match}]</span>
       })
     } else {
       parsed = [text]

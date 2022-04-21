@@ -1,3 +1,15 @@
+:root {
+  --color-dark-green: #0d3300;
+  --color-btn-primary: #498d01;
+  --color-hover-primary: #5fb701;
+  --color-text-primary: #90ed2d;
+  --color-bg-primary: #202020;
+  --color-link-primary: yellow;
+  --color-hover-secondary: #131313;
+  --color-bg-tooltip: palegoldenrod;
+  --color-line: #707070;
+}
+
 [data-class-color='shaman'] {
   color: #0070dd;
 }
@@ -22,10 +34,6 @@
   color: mediumpurple;
 }
 
-.turtle-dark-green {
-  color: #0d3300;
-}
-
-.turtle-light-green {
-  color: #5fb701;
+[data-class-color='default'] {
+  color: var(--color-text-primary);
 }

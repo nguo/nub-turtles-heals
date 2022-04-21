@@ -4,10 +4,10 @@ export default function Card({ children }) {
       {children}
       <style jsx>{`
         .card {
-          background: rgb(32, 32, 32) none repeat scroll 0% 0%;
+          background: var(--color-bg-primary);
           border: 1px solid black;
           border-radius: 5px;
-          color: #ffffff;
+          color: white;
           padding: 10px;
         }
       `}</style>

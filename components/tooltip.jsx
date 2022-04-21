@@ -7,13 +7,12 @@ export default function Tooltip({ tooltipText, children }) {
         .tooltip {
           position: relative;
           display: inline-block;
-          border-bottom: 1px dotted black;
         }
 
         .tooltip .tooltiptext {
           visibility: hidden;
           width: 150px;
-          background-color: palegoldenrod;
+          background-color: var(--color-bg-tooltip);
           color: #000;
           text-align: center;
           border-radius: 6px;
@@ -33,7 +32,7 @@ export default function Tooltip({ tooltipText, children }) {
           margin-left: -5px;
           border-width: 5px;
           border-style: solid;
-          border-color: palegoldenrod transparent transparent transparent;
+          border-color: var(--color-bg-tooltip) transparent transparent transparent;
         }
 
         .tooltip:hover .tooltiptext {

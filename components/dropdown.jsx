@@ -67,7 +67,7 @@ export default function Dropdown({ id, required, label, value, options, onSelect
           border: none;
           padding: 10px;
           margin: 0px auto;
-          background-color: #498d01;
+          background-color: var(--color-btn-primary);
         }
         button[data-selected='true'] {
           font-weight: 800;
@@ -75,7 +75,7 @@ export default function Dropdown({ id, required, label, value, options, onSelect
         }
 
         [data-value]:not([data-value='']) {
-          background-color: #202020;
+          background-color: var(--color-bg-primary);
           color: white;
           border: 1px solid black;
         }
@@ -85,10 +85,10 @@ export default function Dropdown({ id, required, label, value, options, onSelect
           text-transform: uppercase;
         }
         .menu-button:hover {
-          background-color: #5fb701;
+          background-color: var(--color-hover-primary);
         }
         .dropdown-container[data-open='true'] .menu-button {
-          background-color: #131313;
+          background-color: var(--color-hover-secondary);
           color: white;
         }
 
@@ -106,11 +106,11 @@ export default function Dropdown({ id, required, label, value, options, onSelect
         }
 
         .dropdown-list button {
-          background-color: #5fb701;
+          background-color: var(--color-hover-primary);
           border-top: 1px solid rgba(0, 0, 0, 0.3);
         }
         .dropdown-list button:hover {
-          background-color: #131313;
+          background-color: var(--color-hover-secondary);
           color: white;
         }
         .dropdown-container[data-open='true'] .dropdown-list button {

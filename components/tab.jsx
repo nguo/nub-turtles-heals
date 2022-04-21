@@ -9,19 +9,19 @@ export default function Tab({ children, active, clickable, onClick }) {
           border-bottom: 5px solid rgb(0, 0, 0, 0);
           border-top-left-radius: 5px;
           border-top-right-radius: 5px;
-          color: #ffffff;
+          color: white;
           padding: 10px;
         }
         div:hover {
-          color: green;
-          background-color: #131313;
-          border-bottom-color: yellow;
+          color: var(--color-hover-primary);
+          background-color: var(--color-hover-secondary);
+          border-bottom-color: var(--color-link-primary);
         }
         div[data-clickable='true'] {
           cursor: pointer;
         }
         div[data-active='true'] {
-          background-color: #131313;
+          background-color: var(--color-hover-secondary);
           border-bottom-color: black;
         }
       `}</style>

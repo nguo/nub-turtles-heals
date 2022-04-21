@@ -54,18 +54,32 @@ function AssignmentsPage({
   })
   const router = useRouter()
   const defaultGroup = orderedHealerGroups[0]
-  const { raid, boss, group, healer } = router.query
+  let initialRaid = ''
+  let initialBoss = ''
+  let initialGroup = defaultGroup
+  let initialHealer = router.query.healer
+  if (router.query.raid && encNamesByRaid[router.query.raid]) {
+    initialRaid = router.query.raid
+  }
+  if (router.query.boss && encNamesByBoss[router.query.boss]) {
+    initialBoss = router.query.boss
+  }
+  if (router.query.group && encNamesByGroup[router.query.group]) {
+    initialGroup = router.query.group
+  }
   const [currOpenedDropdown, setCurrOpenedDropdown] = useState('')
-  const [selectedRaid, setSelectedRaid] = useState(raid || '')
-  const [selectedBoss, setSelectedBoss] = useState(boss || '')
-  const [selectedGroup, setSelectedGroup] = useState(group || defaultGroup)
-  const [selectedHealer, setSelectedHealer] = useState(healer || '')
-  const [selectableBosses, setSelectableBosses] = useState(Object.keys(encNamesByBoss))
-  const [filteredEncounterNames, setFilteredEncounterNames] = useState(filterEncounters(raid, boss, group || defaultGroup, healer, false))
+  const [selectedRaid, setSelectedRaid] = useState(initialRaid)
+  const [selectedBoss, setSelectedBoss] = useState(initialBoss)
+  const [selectedGroup, setSelectedGroup] = useState(initialGroup)
+  const [selectedHealer, setSelectedHealer] = useState(initialHealer)
+  const [selectableBosses, setSelectableBosses] = useState(initialRaid ? bossesByRaid[initialRaid] : Object.keys(encNamesByBoss))
+  const [filteredEncounterNames, setFilteredEncounterNames] = useState(
+    filterEncounters(initialRaid, initialBoss, initialGroup, initialHealer, false)
+  )
 
   function updateQueryParams(raid, boss, group, healer) {
     const params = []
-    if (group) {
+    if (group && group !== defaultGroup) {
       params.push('group=' + encodeURIComponent(group))
     }
     if (raid) {
@@ -112,13 +126,13 @@ function AssignmentsPage({
 
   function filterEncounters(raid, boss, group, healer, updateState = true) {
     let encounterNames = Object.keys(encSummaryByEncName)
-    if (raid) {
+    if (raid && encNamesByRaid[raid]) {
       encounterNames = encounterNames.filter((encName) => encNamesByRaid[raid].indexOf(encName) >= 0)
     }
-    if (boss) {
+    if (boss && encNamesByBoss[boss]) {
       encounterNames = encounterNames.filter((encName) => encNamesByBoss[boss].indexOf(encName) >= 0)
     }
-    if (group) {
+    if (group && encNamesByGroup[group]) {
       encounterNames = encounterNames.filter((encName) => encNamesByGroup[group].indexOf(encName) >= 0)
     }
     if (healer) {

@@ -50,6 +50,7 @@ export default function Role({ active, highlight, role, playersIndex, spellBook 
           border-top: 1px solid var(--color-line);
           display: flex;
           width: 100%;
+          padding: 5px 0;
         }
         .container[data-active='false'] {
           /** TODO: do we want to completely hide non-active roles or just dim? */

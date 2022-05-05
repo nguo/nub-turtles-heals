@@ -149,7 +149,6 @@ function AssignmentsPage({
   }
 
   function copyEncounter(encounterSummary, encounterRoles) {
-    let str = `** Healing Assignments for ${encounterSummary.boss} **\r\n`
     let str = `**** Healing Assignments for ${encounterSummary.boss} ****\r\n`
     str += encounterRoles.map((role) => roleToString(role)).join('\r\n')
     str += '*********************\r\n'

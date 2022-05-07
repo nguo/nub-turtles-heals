@@ -2,29 +2,29 @@ import Layout from '../components/layout'
 import Tidbit from '../components/tidbit'
 import fetchTidbits from '../lib/fetchTidbits'
 
-export default function TidbitsPage({ tidbits }) {
+export default function GuidesPage({ guides }) {
   return (
-    <Layout pageTitle="Healer Tidbits">
-      <div className="container">
-        {tidbits.map((tb, i) => (
-          <Tidbit key={i} data={tb} />
-        ))}
-        <style jsx>{`
+      <Layout pageTitle="Healer Guides">
+        <div className="container">
+          {guides.map((tb, i) => (
+              <Tidbit key={i} data={tb} />
+          ))}
+          <style jsx>{`
           .container {
             max-width: 1000px;
             margin: auto;
           }
         `}</style>
-      </div>
-    </Layout>
+        </div>
+      </Layout>
   )
 }
 
 export async function getServerSideProps() {
-  const tidbits = await fetchTidbits()
+  const guides = await fetchTidbits('guides')
   return {
     props: {
-      tidbits
+      guides
     }
   }
 }

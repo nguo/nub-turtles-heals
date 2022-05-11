@@ -136,11 +136,16 @@ function AssignmentsPage({
       encounterNames = encounterNames.filter((encName) => encNamesByGroup[group].indexOf(encName) >= 0)
     }
     if (healer) {
-      const matchingNames = Object.keys(playersIndex).filter((indexedName) => doesPlayerNameMatch(healer, indexedName))
-      encounterNames = matchingNames
-        .map((name) => encNamesByHealer[name])
-        .flat()
-        .filter((name) => !!name)
+      // matching names include both names that include the healer and non-player, generic names (eg. "all")
+      const matchingNames = Object.keys(encNamesByHealer).filter((encounterHealer) => doesPlayerNameMatch(healer, encounterHealer) || !playersIndex[encounterHealer]);
+      encounterNames = encounterNames.filter((encName) => {
+        for (let matchingHealer of matchingNames) {
+          if (encNamesByHealer[matchingHealer].indexOf(encName) >= 0) {
+            return true
+          }
+        }
+        return false
+      })
     }
     if (updateState) {
       setFilteredEncounterNames(encounterNames)

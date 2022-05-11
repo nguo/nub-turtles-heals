@@ -22,7 +22,7 @@ export default function SmartText({ text, spellBook }) {
     // replace newline characters with line break
     parsed.forEach((part, i) => {
       parsed[i] = rsr(part, /(\n)/g, (match, i) => {
-        return <br key={'br-' + i} />
+        return <br key={'br-' + i + Math.floor(Math.random() * 1000)} />
       })
     })
     parsed = parsed.flat()

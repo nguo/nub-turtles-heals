@@ -49,7 +49,7 @@ function AssignmentsPage({
     } else if (isDefaultHealerGroup(b)) {
       return 1
     } else {
-      return a.phase < b.phase ? -1 : 1
+      return a < b ? -1 : 1
     }
   })
   const router = useRouter()

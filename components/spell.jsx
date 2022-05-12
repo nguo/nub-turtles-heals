@@ -18,7 +18,7 @@ export default function Spell({ displayText, spellInfo }) {
       e.preventDefault()
       return
     }
-    router.push(getLink())
+    router.push(spellInfo.link)
   }
 
   return (
@@ -33,9 +33,8 @@ export default function Spell({ displayText, spellInfo }) {
           spellInfo.description
         )
       }>
-      <div className="spell" data-clickable={!!spellInfo.link} onClick={onSpellClick}>
-        [
-        <span>
+      <div className="spell" data-clickable={spellInfo.link} onClick={onSpellClick}>
+        [<span>
           <img src={spellInfo.image} />
         </span>
         <span>{displayText}</span>]

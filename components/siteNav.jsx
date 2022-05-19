@@ -1,6 +1,5 @@
 import Tab from './tab'
 import { useState } from 'react'
-import Toolbar from './toolbar'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -8,6 +7,10 @@ const tabs = [
   {
     label: 'Assignments',
     path: '/'
+  },
+  {
+    label: 'Raider Plans',
+    path: '/raider-plans'
   },
   {
     label: 'Resources',

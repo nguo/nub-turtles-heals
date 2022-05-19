@@ -5,9 +5,12 @@ export default function Tidbit({ data }) {
     <div className="container">
       <div className="title">{data.name}</div>
       {data.link && (
-        <a className="link" href={data.link}>
-          [link here]
-        </a>
+          <a className="link" href={data.link}>
+            [link here]
+          </a>
+      )}
+      {data.image && (
+          <img src={data.image} />
       )}
       <div className="summary">
         <SmartText text={data.summary} />
@@ -32,6 +35,9 @@ export default function Tidbit({ data }) {
         }
         .details {
           margin-top: 10px;
+        }
+        img {
+          margin: 10px 0;
         }
       `}</style>
     </div>

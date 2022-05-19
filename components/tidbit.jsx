@@ -37,7 +37,10 @@ export default function Tidbit({ data }) {
           margin-top: 10px;
         }
         img {
-          margin: 10px 0;
+          display: block;
+          margin: 10px auto;
+          width: 80%;
+          height: auto;
         }
       `}</style>
     </div>

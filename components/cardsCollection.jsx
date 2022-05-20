@@ -4,7 +4,8 @@ export default function CardsCollection({ children }) {
   let maxCols = Math.min(children.length, 5)
   const breakpointColumnsObj = {
     default: maxCols,
-    1441: Math.min(maxCols, 4),
+    1700: Math.min(maxCols, 4),
+    1441: Math.min(maxCols, 3),
     1200: Math.min(maxCols, 3),
     990: Math.min(maxCols, 2),
     700: 1

@@ -20,6 +20,11 @@ a {
   box-sizing: border-box;
 }
 
+[data-clickable='true'] {
+  cursor: pointer;
+  user-select: none;
+}
+
 .masonry-grid {
   display: -webkit-box; /* Not needed if autoprefixing */
   display: -ms-flexbox; /* Not needed if autoprefixing */

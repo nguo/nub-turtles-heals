@@ -17,9 +17,6 @@ export default function Tab({ children, active, clickable, onClick }) {
           background-color: var(--color-hover-secondary);
           border-bottom-color: var(--color-link-primary);
         }
-        div[data-clickable='true'] {
-          cursor: pointer;
-        }
         div[data-active='true'] {
           background-color: var(--color-hover-secondary);
           border-bottom-color: black;

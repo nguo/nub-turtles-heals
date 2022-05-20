@@ -33,12 +33,20 @@ export default function Spell({ displayText, spellInfo }) {
           spellInfo.description
         )
       }>
-      <div className="spell" data-clickable={spellInfo.link} onClick={onSpellClick}>
-        [<span>
-          <img src={spellInfo.image} />
-        </span>
-        <span>{displayText}</span>]
-      </div>
+      {
+        isTouchDevice || !spellInfo.link ? (
+            <div className="spell" data-clickable={spellInfo.link} onClick={onSpellClick}>
+              [<span><img src={spellInfo.image} /></span>
+              <span>{displayText}</span>]
+            </div>
+        ) : (
+            <a href={spellInfo.link} className="spell">
+              [<span><img src={spellInfo.image} /></span>
+              <span>{displayText}</span>]
+            </a>
+        )
+      }
+
       <style jsx>{`
         .spell {
           color: var(--color-bg-tooltip);

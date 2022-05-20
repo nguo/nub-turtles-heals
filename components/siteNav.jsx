@@ -2,6 +2,8 @@ import Tab from './tab'
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import MenuItem from './menuItem';
+import Hamburger from './hamburger';
 
 const tabs = [
   {
@@ -25,9 +27,15 @@ const tabs = [
 export default function SiteNav({ pageTitle }) {
   const router = useRouter()
   const [currTabPath, setCurrTabPath] = useState(router.pathname)
+  const [showMenu, setShowMenu] = useState(false)
 
   function handleClick(tabData) {
     setCurrTabPath(tabData.path)
+    setShowMenu(false)
+  }
+
+  function onMenu() {
+    setShowMenu(!showMenu)
   }
 
   return (
@@ -45,18 +53,42 @@ export default function SiteNav({ pageTitle }) {
         ))}
       </div>
       <div className="header">
-        <h1>{pageTitle}</h1>
-        <img id="img-right" alt="logo" src="/logo.png" />
+        <div className="banner">
+          <h1>{pageTitle}</h1>
+          <div className="menu-button" onClick={() => onMenu()}><Hamburger /></div>
+          <img id="img-right" alt="logo" src="/logo.png" />
+        </div>
+        <div className="mobile-menu" data-expand={showMenu}>
+          {tabs.map((tabData, i) => {
+            return currTabPath === tabData.path ? <></> : (
+              <Link key={i} href={tabData.path}>
+                <div key={i} onClick={() => handleClick(tabData)}>
+                  <MenuItem>
+                    {tabData.label}
+                  </MenuItem>
+                </div>
+              </Link>
+            )
+          })}
+        </div>
       </div>
       <style jsx>{`
         .site-nav-container {
           padding-top: 50px;
         }
+        
+        .menu-button {
+          display: none;
+        }
+        
+        .mobile-menu {
+          display: none;
+        }
 
         .tabs-list {
           margin-left: 20px;
           display: flex;
-          gap: 10px;
+          gap: 15px;
         }
 
         .header {
@@ -77,13 +109,30 @@ export default function SiteNav({ pageTitle }) {
 
         h1 {
           display: inline-block;
+          width: 85%;
+        }
+        
+        .banner {
           background-color: var(--color-hover-secondary);
-          padding: 25px 40px;
+          padding: 4px 40px;
           width: 100%;
-          margin: 0;
+          margin: 0
         }
 
-        @media (max-width: 580px) {
+        @media (max-width: 700px) {
+          .tabs-list {
+            display: none;
+          }
+          .menu-button {
+            cursor: pointer;
+            display: block;
+            top: 30px;
+            right: 25px;
+            position: absolute;
+          }
+          .mobile-menu[data-expand="true"] {
+            display: block;
+          }
           .site-nav-container {
             padding-top: 0;
           }

@@ -137,7 +137,9 @@ function AssignmentsPage({
     }
     if (healer) {
       // matching names include both names that include the healer and non-player, generic names (eg. "all")
-      const matchingNames = Object.keys(encNamesByHealer).filter((encounterHealer) => doesPlayerNameMatch(healer, encounterHealer) || !playersIndex[encounterHealer]);
+      const matchingNames = Object.keys(encNamesByHealer).filter(
+        (encounterHealer) => doesPlayerNameMatch(healer, encounterHealer) || !playersIndex[encounterHealer]
+      )
       encounterNames = encounterNames.filter((encName) => {
         for (let matchingHealer of matchingNames) {
           if (encNamesByHealer[matchingHealer].indexOf(encName) >= 0) {

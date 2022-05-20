@@ -2,8 +2,8 @@ import Tab from './tab'
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import MenuItem from './menuItem';
-import Hamburger from './hamburger';
+import MenuItem from './menuItem'
+import Hamburger from './hamburger'
 
 const tabs = [
   {
@@ -55,17 +55,19 @@ export default function SiteNav({ pageTitle }) {
       <div className="header">
         <div className="banner">
           <h1>{pageTitle}</h1>
-          <div className="menu-button" onClick={() => onMenu()}><Hamburger /></div>
+          <div className="menu-button" onClick={() => onMenu()}>
+            <Hamburger />
+          </div>
           <img id="img-right" alt="logo" src="/logo.png" />
         </div>
         <div className="mobile-menu" data-expand={showMenu}>
           {tabs.map((tabData, i) => {
-            return currTabPath === tabData.path ? <></> : (
+            return currTabPath === tabData.path ? (
+              <></>
+            ) : (
               <Link key={i} href={tabData.path}>
                 <div key={i} onClick={() => handleClick(tabData)}>
-                  <MenuItem>
-                    {tabData.label}
-                  </MenuItem>
+                  <MenuItem>{tabData.label}</MenuItem>
                 </div>
               </Link>
             )
@@ -76,11 +78,11 @@ export default function SiteNav({ pageTitle }) {
         .site-nav-container {
           padding-top: 50px;
         }
-        
+
         .menu-button {
           display: none;
         }
-        
+
         .mobile-menu {
           display: none;
         }
@@ -111,12 +113,12 @@ export default function SiteNav({ pageTitle }) {
           display: inline-block;
           width: 85%;
         }
-        
+
         .banner {
           background-color: var(--color-hover-secondary);
           padding: 4px 40px;
           width: 100%;
-          margin: 0
+          margin: 0;
         }
 
         @media (max-width: 700px) {
@@ -130,7 +132,7 @@ export default function SiteNav({ pageTitle }) {
             right: 25px;
             position: absolute;
           }
-          .mobile-menu[data-expand="true"] {
+          .mobile-menu[data-expand='true'] {
             display: block;
           }
           .site-nav-container {

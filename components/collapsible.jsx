@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import { useState } from 'react'
 
 export default function Collapsible({ title, children }) {
   const [collapsed, setCollapsed] = useState(true)
@@ -8,7 +8,7 @@ export default function Collapsible({ title, children }) {
   }
 
   return (
-    <div className='container'>
+    <div className="container">
       <div className="title" data-clickable="true" onClick={toggleCollapse}>
         <span className="collapse-icon">{collapsed ? '+' : '-'}</span>
         <span>{title}</span>
@@ -29,10 +29,9 @@ export default function Collapsible({ title, children }) {
         .body {
           border-top: 1px grey solid;
         }
-        .body[data-collapsed="true"] {
+        .body[data-collapsed='true'] {
           display: none;
         }
-        
       `}</style>
     </div>
   )

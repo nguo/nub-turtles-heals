@@ -6,13 +6,11 @@ export default function Tidbit({ data }) {
       {data.name && <div className="title">{data.name}</div>}
       <div className="body">
         {data.link && (
-            <a className="link" href={data.link}>
-              [link here]
-            </a>
+          <a className="link" href={data.link}>
+            [link here]
+          </a>
         )}
-        {data.image && (
-            <img src={data.image} />
-        )}
+        {data.image && <img src={data.image} />}
         <div className="summary">
           <SmartText text={data.summary} />
         </div>

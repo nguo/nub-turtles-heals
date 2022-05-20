@@ -4,19 +4,19 @@ import fetchTidbits from '../lib/fetchTidbits'
 
 export default function GuidesPage({ guides }) {
   return (
-      <Layout pageTitle="Healer Guides">
-        <div className="container">
-          {guides.map((tb, i) => (
-              <Tidbit key={i} data={tb} />
-          ))}
-          <style jsx>{`
+    <Layout pageTitle="Healer Guides">
+      <div className="container">
+        {guides.map((tb, i) => (
+          <Tidbit key={i} data={tb} />
+        ))}
+        <style jsx>{`
           .container {
             max-width: 1000px;
             margin: auto;
           }
         `}</style>
-        </div>
-      </Layout>
+      </div>
+    </Layout>
   )
 }
 

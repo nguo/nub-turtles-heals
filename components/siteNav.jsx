@@ -1,5 +1,5 @@
 import Tab from './tab'
-import { useState } from 'react'
+import {Fragment, useState} from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import MenuItem from './menuItem'
@@ -63,10 +63,10 @@ export default function SiteNav({ pageTitle }) {
         <div className="mobile-menu" data-expand={showMenu}>
           {tabs.map((tabData, i) => {
             return currTabPath === tabData.path ? (
-              <></>
+                <Fragment key={i}></Fragment>
             ) : (
               <Link key={i} href={tabData.path}>
-                <div key={i} onClick={() => handleClick(tabData)}>
+                <div onClick={() => handleClick(tabData)}>
                   <MenuItem>{tabData.label}</MenuItem>
                 </div>
               </Link>

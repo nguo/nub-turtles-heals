@@ -309,9 +309,7 @@ function AssignmentsPage({
 }
 
 export async function getServerSideProps() {
-  const rolesIndex = await fetchAssignmentRoles()
-  const playersIndex = await fetchPlayers()
-  const spellBook = await fetchSpells()
+  const [rolesIndex, playersIndex, spellBook] = await Promise.all([fetchAssignmentRoles(), fetchPlayers(), fetchSpells()])
 
   const encSummaryByEncName = {}
   const encNamesByRaid = {}

@@ -6,7 +6,7 @@ export default function Tidbit({ data }) {
       {data.name && <div className="title">{data.name}</div>}
       <div className="body">
         {data.link && (
-          <a className="link" href={data.link}>
+          <a className="link" href={data.link} target="_blank" rel="noopener noreferrer">
             [link here]
           </a>
         )}

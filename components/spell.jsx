@@ -42,7 +42,7 @@ export default function Spell({ displayText, spellInfo }) {
           <span>{displayText}</span>]
         </div>
       ) : (
-        <a href={spellInfo.link} className="spell">
+        <a href={spellInfo.link} target="_blank" rel="noopener noreferrer" className="spell">
           [
           <span>
             <img src={spellInfo.image} />

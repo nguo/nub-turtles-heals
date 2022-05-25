@@ -30,7 +30,7 @@ export default function SmartText({ text, spellBook }) {
     parsed.forEach((part, i) => {
       parsed[i] = rsr(part, /(http[s]?:\/\/[\S]+)\s*/g, (match, i) => {
         return (
-          <a key={'a-' + i} href={match}>
+          <a key={'a-' + i} href={match} target="_blank" rel="noopener noreferrer">
             {match}
           </a>
         )
